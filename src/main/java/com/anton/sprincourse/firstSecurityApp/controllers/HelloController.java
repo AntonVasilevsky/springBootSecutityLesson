@@ -15,7 +15,7 @@ public class HelloController {
     @GetMapping("getUserDetails")
     public String getUserDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-       HumanDetails humanDetails = (HumanDetails) authentication.getPrincipal();
+        HumanDetails humanDetails = (HumanDetails) authentication.getPrincipal();
         System.out.println(humanDetails.getHuman());
         return "hello";
     }
