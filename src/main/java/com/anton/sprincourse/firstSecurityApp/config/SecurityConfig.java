@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -24,7 +25,7 @@ public class SecurityConfig {
 
     public void config(AuthenticationManagerBuilder auth) {
         try {
-            auth.userDetailsService(humanDetailsService);
+            auth.userDetailsService(humanDetailsService).passwordEncoder(getPasswordEncoder());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -32,24 +33,20 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-               /* .authorizeHttpRequests(auth -> {
-                   // auth.requestMatchers("/auth/login", "/error").permitAll();
-                    auth.requestMatchers("/hello").permitAll();
-                    auth.anyRequest().authenticated();
-                })*/
+
                 .authorizeHttpRequests(auth -> {
                    auth.requestMatchers("auth/login", "auth/registration").permitAll();
-                   // auth.requestMatchers("auth/registration").permitAll();
+
 
                     auth.anyRequest().authenticated();
-                   // auth.anyRequest().permitAll();
+
 
                 })
                 .formLogin(f -> f.loginPage("/auth/login")
