@@ -39,13 +39,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests(auth -> {
                    auth.requestMatchers("auth/login", "auth/registration").permitAll();
 
 
-                    auth.anyRequest().authenticated();
+                   auth.anyRequest().authenticated();
 
 
                 })
