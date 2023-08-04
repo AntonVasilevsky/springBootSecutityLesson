@@ -41,10 +41,14 @@ public class SecurityConfig {
         return http
 
                 .authorizeHttpRequests(auth -> {
-                   auth.requestMatchers("auth/login", "auth/registration").permitAll();
+                   auth
+                           .requestMatchers("auth/login", "auth/registration")
+                           .permitAll()
+                           .anyRequest()
+                           .authenticated();
 
 
-                   auth.anyRequest().authenticated();
+
 
 
                 })
@@ -53,7 +57,9 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/hello", true)
                         )
                 .logout(logout ->
-                    logout.logoutUrl("/logout").logoutSuccessUrl("/auth/login")
+                    logout
+                            .logoutUrl("/logout")
+                            .logoutSuccessUrl("/auth/login")
                 )
                 .build();
 
