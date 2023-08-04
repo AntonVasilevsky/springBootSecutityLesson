@@ -45,8 +45,11 @@ public class SecurityConfig {
                     auth.anyRequest().authenticated();
                 })*/
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("auth/login").permitAll();
+                   auth.requestMatchers("auth/login", "auth/registration").permitAll();
+                   // auth.requestMatchers("auth/registration").permitAll();
+
                     auth.anyRequest().authenticated();
+                   // auth.anyRequest().permitAll();
 
                 })
                 .formLogin(f -> f.loginPage("/auth/login")

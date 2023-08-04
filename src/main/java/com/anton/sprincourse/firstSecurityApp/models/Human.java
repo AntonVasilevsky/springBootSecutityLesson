@@ -25,8 +25,8 @@ public class Human {
     public Human() {
     }
 
-    public Human(String name, int yearOfBirth) {
-        this.name = name;
+    public Human(String username, int yearOfBirth) {
+        this.name = username;
         this.yearOfBirth = yearOfBirth;
     }
 
@@ -42,8 +42,8 @@ public class Human {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String username) {
+        this.name = username;
     }
 
     public int getYearOfBirth() {
