@@ -42,10 +42,11 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> {
                    auth
-                           .requestMatchers("auth/login", "auth/registration")
+                           .requestMatchers("/admin")
+                           .hasRole("ADMIN")
+                           .requestMatchers("/auth/login", "/auth/registration", "/auth/login_fail")
                            .permitAll()
-                           .anyRequest()
-                           .authenticated();
+                           .anyRequest().hasAnyRole("USER", "ADMIN");
 
 
 
@@ -55,6 +56,7 @@ public class SecurityConfig {
                 .formLogin(f -> f.loginPage("/auth/login")
                         .loginProcessingUrl("/auth/process_login")
                         .defaultSuccessUrl("/hello", true)
+                        .failureUrl("/auth/login_fail")
                         )
                 .logout(logout ->
                     logout

@@ -19,4 +19,8 @@ public class HelloController {
         System.out.println(humanDetails.getHuman());
         return "hello";
     }
+    @GetMapping("/admin")
+    public String getAdmin() {
+        return "admin";
+    }
 }

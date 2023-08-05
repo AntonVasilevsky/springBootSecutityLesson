@@ -50,5 +50,11 @@ public class AuthController {
 
         return "redirect:/auth/login";
     }
+    @GetMapping("/login_fail")
+        public String loginFail(){
+            return "auth/login_fail";
+        }
 
 }
+
+

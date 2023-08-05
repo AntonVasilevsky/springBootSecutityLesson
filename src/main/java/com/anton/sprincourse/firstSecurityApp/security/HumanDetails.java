@@ -2,9 +2,11 @@ package com.anton.sprincourse.firstSecurityApp.security;
 
 import com.anton.sprincourse.firstSecurityApp.models.Human;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 
 public class HumanDetails implements UserDetails {
     private final Human human;
@@ -15,7 +17,7 @@ public class HumanDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.singletonList(new SimpleGrantedAuthority(human.getRole()));
     }
 
     @Override
